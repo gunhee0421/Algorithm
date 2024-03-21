@@ -9,6 +9,8 @@ for index in range(1, L+1):
 
 map=sorted(map.items(), key= lambda item : item[1])
 
+if len(map)<K:
+    K=len(map)
+
 for _ in range(K):
-    if map:
-        print(map.pop(0)[0])
+    print(map.pop(0)[0])
