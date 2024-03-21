@@ -1,17 +1,13 @@
-N, M = map(int , input().split())
+from sys import stdin
+input=stdin.readline
+
+N, M = map(int, input().split())
 hash={}
-copy={}
-result=[]
 
 for i in range(1, N+1):
-    n=input()
-    hash[n]=i
-    copy[i]=n
+    n=input().strip()
+    hash[n]=str(i)
+    hash[str(i)]=n
 
 for i in range(M):
-    que= input()
-    if que.isalpha():
-        result.append(hash.get(que))
-    else:
-        result.append(copy.get(int(que)))
-print(*result, sep="\n")
+    print(hash.get(input().strip()))
