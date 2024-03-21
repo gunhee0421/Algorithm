@@ -12,5 +12,5 @@ map=sorted(map.items(), key= lambda item : item[1])
 if len(map)<K:
     K=len(map)
 
-for _ in range(K):
-    print(map.pop(0)[0])
+for i in range(K):
+    print(map[i][0])
