@@ -8,20 +8,18 @@ s = input()
 
 strLen = 2*n+1
 res = 0
+count = 0
+i = 1
 
-for i in range(len(s)-strLen):
-    word = s[i:i+strLen]
-
-    if word[0] == word[-1] == 'I':
-        suc = True
-        prev = word[0]
-        for j in range(1, len(word)):
-            cur = word[j]
-            if prev == cur:
-                suc = False
-                break
-            prev = cur
-        if suc:
+while i < len(s) - 1:
+    if s[i-1] == 'I' and s[i] == 'O' and s[i+1] == 'I':
+        count += 1
+        if count == n:
             res += 1
+            count -= 1
+        i += 1
+    else:
+        count = 0
+    i += 1
 
 print(res)
