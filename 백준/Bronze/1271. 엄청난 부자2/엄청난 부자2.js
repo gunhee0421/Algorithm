@@ -5,8 +5,4 @@ const [a, b] = fs.readFileSync('/dev/stdin')
     .split(' ')
     .map(BigInt)
 
-const solution = (a, b) => {
-    return a/b + '\n' + a%b
-}
-
 console.log(a/b + '\n' + a%b)
