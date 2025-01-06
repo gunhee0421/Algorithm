@@ -9,11 +9,10 @@ dp = [[0] * N for _ in range(N)]
 dp[0][0] = arr[0][0]
 
 for i in range(1, N):
-    length = len(arr[i])
-    for j in range(length):
+    for j in range(i+1):
         if j == 0:
             dp[i][j] = dp[i-1][j] + arr[i][j]
-        elif j == length:
+        elif j == i+1:
             dp[i][j] = dp[i-1][j-1] + arr[i][j]
         else:
             dp[i][j] = max(dp[i-1][j] + arr[i][j], dp[i-1][j-1] + arr[i][j])
