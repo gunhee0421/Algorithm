@@ -7,7 +7,7 @@ const [order, ...input] = require("fs")
 const [N, M] = order.split(" ").map(Number);
 const home = [];
 const chicken = [];
-const graph = input.map((row, i) => {
+input.map((row, i) => {
   const numbers = row.split(" ").map(Number);
   numbers.forEach((num, j) => {
     if (num === 1) {
