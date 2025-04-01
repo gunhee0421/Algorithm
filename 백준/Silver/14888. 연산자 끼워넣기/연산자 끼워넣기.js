@@ -24,34 +24,30 @@ function solution(input) {
   let maxRes = -Infinity;
   let minRes = Infinity;
 
-  function dfs(index, current, operators) {
+  function dfs(index, current, plus, minus, mul, div) {
     if (index === N) {
       maxRes = Math.max(maxRes, current);
       minRes = Math.min(minRes, current);
       return;
     }
-
-    for (let i = 0; i < 4; i++) {
-      if (operators[i] > 0) {
-        const newOperators = [...operators];
-        newOperators[i]--;
-
-        let next;
-        if (i === 0) next = current + number[index];
-        else if (i === 1) next = current - number[index];
-        else if (i === 2) next = current * number[index];
-        else {
-          next =
-            current < 0
-              ? -Math.floor(Math.abs(current) / number[index])
-              : Math.floor(current / number[index]);
-        }
-
-        dfs(index + 1, next, newOperators);
-      }
+    if (plus > 0) {
+      dfs(index + 1, current + number[index], plus - 1, minus, mul, div);
+    }
+    if (minus > 0) {
+      dfs(index + 1, current - number[index], plus, minus - 1, mul, div);
+    }
+    if (mul > 0) {
+      dfs(index + 1, current * number[index], plus, minus, mul - 1, div);
+    }
+    if (div > 0) {
+      const next =
+        current < 0
+          ? -Math.floor(-current / number[index])
+          : Math.floor(current / number[index]);
+      dfs(index + 1, next, plus, minus, mul, div - 1);
     }
   }
-  dfs(1, number[0], method);
+  dfs(1, number[0], method[0], method[1], method[2], method[3]);
   return `${maxRes}\n${minRes}`;
 }
 
