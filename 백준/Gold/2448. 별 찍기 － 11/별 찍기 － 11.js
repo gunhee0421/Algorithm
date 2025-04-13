@@ -8,30 +8,31 @@ const input = require("fs")
 /*
 1. N높이의 삼각형으로 별찍기
 2. N이 3이되면 동일한 삼각형이 그려지도록
+3. 2차원 배열이 아닌, 문자열 누적으로 += 방식으로 시간복잡도 낮추기 가능 js의 경우
 */
 function solution(input) {
   const N = Number(input[0]);
-  const graph = Array.from({ length: N }, () => Array(2 * N - 1).fill(" "));
+  const graph = draw(N);
 
-  function draw(x, y, n) {
-    if (n === 3) {
-      graph[x][y] = "*";
-      graph[x + 1][y - 1] = "*";
-      graph[x + 1][y + 1] = "*";
-      for (let i = -2; i <= 2; i++) {
-        graph[x + 2][y - i] = "*";
-      }
-      return;
-    }
-
-    const half = n / 2;
-    draw(x, y, half);
-    draw(x + half, y - half, half);
-    draw(x + half, y + half, half);
+  for (let i = N; i > 0; i--) {
+    graph[i - 1] = " ".repeat(N - i) + graph[i - 1] + " ".repeat(N - i);
   }
-  draw(0, N - 1, N);
+  return graph.join("\n");
 
-  return graph.map((row) => row.join("")).join("\n");
+  function draw(N) {
+    if (N === 3) return ["*", "* *", "*****"];
+
+    const res = Array.from({ length: N }, () => "");
+    const sub = draw(N / 2);
+
+    sub.forEach((v, i) => (res[i] += v));
+    sub.forEach((v, i) => {
+      res[N / 2 + i] += v;
+      res[N / 2 + i] += " ".repeat((N / 2 - i) * 2 - 1);
+      res[N / 2 + i] += v;
+    });
+    return res;
+  }
 }
 
 console.log(solution(input));
